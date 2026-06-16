@@ -1,6 +1,6 @@
 # n8n-nodes-muapi
 
-[n8n](https://n8n.io/) community nodes for [MuAPI](https://muapi.ai) — a generative media AI platform supporting text-to-image, image-to-video, audio generation, image enhancement, and more.
+[n8n](https://n8n.io/) community nodes for [MuAPI](https://muapi.ai?utm_source=github&utm_medium=readme&utm_campaign=n8n-nodes-muapi) — a generative media AI platform supporting text-to-image, image-to-video, audio generation, image enhancement, and more.
 
 ## Related Projects
 
@@ -58,7 +58,7 @@ N8N_COMMUNITY_PACKAGES=n8n-nodes-muapi
 
 ## Credentials
 
-1. Get your API key from [muapi.ai/dashboard/keys](https://muapi.ai/dashboard/keys)
+1. Get your API key from [muapi.ai/dashboard/keys](https://muapi.ai/dashboard/keys?utm_source=github&utm_medium=readme&utm_campaign=n8n-nodes-muapi)
 2. In n8n go to **Credentials → New Credential → MuAPI API**
 3. Enter your API key
 
