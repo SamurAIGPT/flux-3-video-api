@@ -11,6 +11,16 @@ A focused Python wrapper for the **FLUX 3 video API** — Black Forest Labs' uni
 
 > 🌌 **FLUX 3** was announced by Black Forest Labs on July 23, 2026 as a unified multimodal frontier model — one architecture generates image, video, and native synchronized audio, and extends to action-prediction for robotics. [MuAPI](https://muapi.ai/flux-3?utm_source=github&utm_medium=readme&utm_campaign=flux-3-video-api) activates each FLUX 3 endpoint automatically for existing API keys as Black Forest Labs opens general availability — no separate waitlist required.
 
+<p align="center">
+  <a href="https://www.youtube.com/watch?v=pq0B_A0K770">
+    <img src="docs/assets/flux-3-api-video-thumbnail.png" alt="FLUX 3 API: Image & Video Generation from One Multimodal Model" width="640">
+  </a>
+</p>
+
+<p align="center">
+  <a href="https://www.youtube.com/watch?v=pq0B_A0K770"><b>📺 FLUX 3 API: Image & Video Generation from One Multimodal Model →</b></a>
+</p>
+
 ## Related Projects
 
 - [Flux-3-Dev-API](https://github.com/Anil-matcha/Flux-3-Dev-API) — Python SDK covering the full FLUX 3 family, including image endpoints
