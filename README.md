@@ -23,6 +23,7 @@ A focused Python wrapper for the **FLUX 3 video API** — Black Forest Labs' uni
 
 ## Related Projects
 
+- [MiniMax-H3-API](https://github.com/Anil-matcha/MiniMax-H3-API) — Python SDK for MiniMax H3 text-to-video, image-to-video, and first/last-frame video generation.
 - [Flux-3-Dev-API](https://github.com/Anil-matcha/Flux-3-Dev-API) — Python SDK covering the full FLUX 3 family, including image endpoints
 - [awesome-flux-3-api-prompts](https://github.com/Anil-matcha/awesome-flux-3-api-prompts) — Curated FLUX 3 API guide, prompts, parameters, and examples
 - [Seedance-2.5-API](https://github.com/SamurAIGPT/Seedance-2.5-API) — Python wrapper for ByteDance's Seedance 2.5 video model
