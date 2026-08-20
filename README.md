@@ -26,6 +26,9 @@ A focused Python wrapper for the **FLUX 3 video API** — Black Forest Labs' uni
 - [MiniMax-H3-API](https://github.com/Anil-matcha/MiniMax-H3-API) — Python SDK for MiniMax H3 text-to-video, image-to-video, and first/last-frame video generation.
 - [Flux-3-Dev-API](https://github.com/Anil-matcha/Flux-3-Dev-API) — Python SDK covering the full FLUX 3 family, including image endpoints
 - [awesome-flux-3-api-prompts](https://github.com/Anil-matcha/awesome-flux-3-api-prompts) — Curated FLUX 3 API guide, prompts, parameters, and examples
+- [flux-3-video-edit](https://github.com/Anil-matcha/flux-3-video-edit) — Python SDK for FLUX 3's instruction-driven video editing mode (coming soon)
+- [flux-3-video-upscaler](https://github.com/Anil-matcha/flux-3-video-upscaler) — Python SDK for upscaling FLUX 3 (or any) video output beyond its native resolution (coming soon)
+- [flux-3-omni](https://github.com/Anil-matcha/flux-3-omni) — Python SDK for FLUX 3's multi-reference Omni Reference mode (coming soon)
 - [Seedance-2.5-API](https://github.com/SamurAIGPT/Seedance-2.5-API) — Python wrapper for ByteDance's Seedance 2.5 video model
 - [veo4-video-generator](https://github.com/SamurAIGPT/veo4-video-generator) — Ready-made video generator built on Google's Veo 4
 - [Generative-Media-Skills](https://github.com/SamurAIGPT/Generative-Media-Skills) — Skills runtime for generative media API prompts
