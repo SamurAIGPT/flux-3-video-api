@@ -4,11 +4,11 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "flux-3-video-api"
-version = "0.1.0"
+version = "0.2.0"
 authors = [
   { name="Anil Matcha" },
 ]
-description = "Python wrapper for Black Forest Labs' FLUX 3 video API — Text-to-Video and Image-to-Video with native synchronized audio."
+description = "Python wrapper for Black Forest Labs' FLUX 3 video API — Text-to-Video, Image-to-Video, Start-End-to-Video, Video Extend, and Video Upscaler with native synchronized audio."
 readme = "README.md"
 requires-python = ">=3.7"
 classifiers = [

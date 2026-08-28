@@ -22,7 +22,7 @@ class Flux3VideoAPI:
             "Content-Type": "application/json"
         }
 
-    def text_to_video(self, prompt, aspect_ratio="16:9", resolution="720p", duration=5, generate_audio=True):
+    def text_to_video(self, prompt, aspect_ratio="9:16", resolution="720p", duration=5, generate_audio=True):
         """
         Submits a FLUX 3 Text-to-Video generation task.
 
@@ -31,10 +31,10 @@ class Flux3VideoAPI:
         This generates a cinematic video clip directly from a text prompt.
 
         :param prompt: Text prompt describing the video scene and motion.
-        :param aspect_ratio: Output aspect ratio (e.g. '16:9', '9:16', '1:1', '4:3', '3:4').
-        :param resolution: Output resolution ('480p', '720p', or '1080p').
-        :param duration: Video duration in seconds (4-10).
-        :param generate_audio: Whether to generate synchronized native audio (dialogue, sfx, music).
+        :param aspect_ratio: Output aspect ratio ('21:9', '2:1', '16:9', '4:3', '1:1', '3:4', '9:16').
+        :param resolution: Output resolution ('720p' or '1080p'). $0.25/sec at 720p, $0.42/sec at 1080p.
+        :param duration: Video duration in seconds (5-20), billed rounded up to the next second.
+        :param generate_audio: Whether to generate synchronized native audio (dialogue, sfx, music), no extra charge.
         :return: JSON response with request_id.
         """
         endpoint = f"{self.base_url}/flux-3-text-to-video"
@@ -47,7 +47,28 @@ class Flux3VideoAPI:
         }
         return self._post_request(endpoint, payload)
 
-    def image_to_video(self, prompt, images_list, aspect_ratio="16:9", resolution="720p", duration=5, generate_audio=True):
+    def text_to_video_draft(self, prompt, aspect_ratio="9:16", duration=5, generate_audio=True):
+        """
+        Submits a FLUX 3 Text-to-Video Draft task — a fast, lower-cost draft mode
+        for rapid ideation, storyboarding, and prompt iteration before rendering a
+        final-quality clip with text_to_video().
+
+        :param prompt: Text prompt describing the video scene and motion.
+        :param aspect_ratio: Output aspect ratio ('21:9', '2:1', '16:9', '4:3', '1:1', '3:4', '9:16').
+        :param duration: Video duration in seconds (5-20). Billed flat at $0.09/sec.
+        :param generate_audio: Whether to generate synchronized native audio, no extra charge.
+        :return: JSON response with request_id.
+        """
+        endpoint = f"{self.base_url}/flux-3-text-to-video-draft"
+        payload = {
+            "prompt": prompt,
+            "aspect_ratio": aspect_ratio,
+            "duration": duration,
+            "generate_audio": generate_audio,
+        }
+        return self._post_request(endpoint, payload)
+
+    def image_to_video(self, prompt, image_url, aspect_ratio=None, resolution="720p", duration=5, generate_audio=True):
         """
         Submits a FLUX 3 Image-to-Video generation task.
 
@@ -56,22 +77,126 @@ class Flux3VideoAPI:
         source frame.
 
         :param prompt: Text prompt describing the desired motion.
-        :param images_list: List containing the start-frame image URL.
-        :param aspect_ratio: Output aspect ratio.
-        :param resolution: Output resolution ('480p', '720p', or '1080p').
-        :param duration: Video duration in seconds (4-10).
-        :param generate_audio: Whether to generate synchronized native audio.
+        :param image_url: URL of the start-frame image (PNG/JPEG/WebP).
+        :param aspect_ratio: Output aspect ratio, optional ('21:9', '2:1', '16:9', '4:3', '1:1', '3:4', '9:16').
+        :param resolution: Output resolution ('720p' or '1080p'). $0.25/sec at 720p, $0.42/sec at 1080p.
+        :param duration: Video duration in seconds (5-20), billed rounded up to the next second.
+        :param generate_audio: Whether to generate synchronized native audio, no extra charge.
         :return: JSON response with request_id.
         """
         endpoint = f"{self.base_url}/flux-3-image-to-video"
         payload = {
             "prompt": prompt,
-            "images_list": images_list,
-            "aspect_ratio": aspect_ratio,
+            "image_url": image_url,
             "resolution": resolution,
             "duration": duration,
             "generate_audio": generate_audio,
         }
+        if aspect_ratio:
+            payload["aspect_ratio"] = aspect_ratio
+        return self._post_request(endpoint, payload)
+
+    def start_end_to_video(self, prompt, image_url, end_image_url, aspect_ratio=None, resolution="720p", duration=5, generate_audio=True):
+        """
+        Submits a FLUX 3 Start-End-to-Video generation task.
+
+        Generates a controlled video transition between a start keyframe and an
+        end keyframe you supply, with optional native synchronized audio.
+
+        :param prompt: Text prompt describing the action/transformation connecting the two frames.
+        :param image_url: URL of the start (first) keyframe image.
+        :param end_image_url: URL of the end (last) keyframe image.
+        :param aspect_ratio: Output aspect ratio, optional.
+        :param resolution: Output resolution ('720p' or '1080p'). $0.25/sec at 720p, $0.42/sec at 1080p.
+        :param duration: Video duration in seconds (5-20), billed rounded up to the next second.
+        :param generate_audio: Whether to generate synchronized native audio, no extra charge.
+        :return: JSON response with request_id.
+        """
+        endpoint = f"{self.base_url}/flux-3-start-end-to-video"
+        payload = {
+            "prompt": prompt,
+            "image_url": image_url,
+            "end_image_url": end_image_url,
+            "resolution": resolution,
+            "duration": duration,
+            "generate_audio": generate_audio,
+        }
+        if aspect_ratio:
+            payload["aspect_ratio"] = aspect_ratio
+        return self._post_request(endpoint, payload)
+
+    def video_extend(self, prompt, video_url, aspect_ratio=None, resolution="720p", duration=5, generate_audio=True):
+        """
+        Submits a FLUX 3 Video Extend task.
+
+        Continues an existing video clip with new prompt-guided motion, scene
+        development, and camera movement, with optional native synchronized audio.
+
+        :param prompt: Text prompt describing the next action/scene development/camera movement.
+        :param video_url: URL of the source clip to extend. Must be under 50MB and under 15 seconds.
+        :param aspect_ratio: Output aspect ratio, optional.
+        :param resolution: Output resolution ('720p' or '1080p'). $0.25/sec at 720p, $0.42/sec at 1080p.
+        :param duration: Length of the extension in seconds (5-20), billed rounded up to the next second.
+        :param generate_audio: Whether to generate synchronized native audio for the extension, no extra charge.
+        :return: JSON response with request_id.
+        """
+        endpoint = f"{self.base_url}/flux-3-video-extend"
+        payload = {
+            "prompt": prompt,
+            "video_url": video_url,
+            "resolution": resolution,
+            "duration": duration,
+            "generate_audio": generate_audio,
+        }
+        if aspect_ratio:
+            payload["aspect_ratio"] = aspect_ratio
+        return self._post_request(endpoint, payload)
+
+    def video_extend_draft(self, prompt, video_url, aspect_ratio=None, duration=5, generate_audio=True):
+        """
+        Submits a FLUX 3 Video Extend Draft task — a fast, lower-cost draft mode
+        for testing continuity and camera movement before extending with video_extend().
+
+        :param prompt: Text prompt describing the continuation.
+        :param video_url: URL of the source clip to extend. Must be under 50MB and under 15 seconds.
+        :param aspect_ratio: Output aspect ratio, optional.
+        :param duration: Length of the draft extension in seconds (5-20). Billed flat at $0.09/sec.
+        :param generate_audio: Whether to generate synchronized native audio, no extra charge.
+        :return: JSON response with request_id.
+        """
+        endpoint = f"{self.base_url}/flux-3-video-extend-draft"
+        payload = {
+            "prompt": prompt,
+            "video_url": video_url,
+            "duration": duration,
+            "generate_audio": generate_audio,
+        }
+        if aspect_ratio:
+            payload["aspect_ratio"] = aspect_ratio
+        return self._post_request(endpoint, payload)
+
+    def video_upscale(self, video_url, prompt=None, upscale_factor=None, creativity=0):
+        """
+        Submits a FLUX 3 Video Upscaler task.
+
+        Upscales any video (FLUX 3 output or otherwise) beyond its native
+        resolution, preserving motion coherence and native audio sync.
+
+        :param video_url: URL of the source video to upscale.
+        :param prompt: Optional text prompt describing the desired enhancement direction.
+        :param upscale_factor: Optional multiplier (1-4) controlling output resolution scaling.
+        :param creativity: 0 = Precise ($1.43/run), 1 = Creative ($2.00/run, more detail reconstruction).
+        :return: JSON response with request_id.
+        """
+        endpoint = f"{self.base_url}/flux-3-video-upscaler"
+        payload = {
+            "video_url": video_url,
+            "creativity": creativity,
+        }
+        if prompt:
+            payload["prompt"] = prompt
+        if upscale_factor:
+            payload["upscale_factor"] = upscale_factor
         return self._post_request(endpoint, payload)
 
     def _post_request(self, endpoint, payload):
