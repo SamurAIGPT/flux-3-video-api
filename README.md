@@ -31,7 +31,7 @@ A focused Python wrapper for the **FLUX 3 video API** — Black Forest Labs' uni
 - [flux-3-omni](https://github.com/Anil-matcha/flux-3-omni) — Python SDK for FLUX 3's multi-reference Omni Reference mode (coming soon)
 - [Seedance-2.5-API](https://github.com/SamurAIGPT/Seedance-2.5-API) — Python wrapper for ByteDance's Seedance 2.5 video model
 - [veo4-video-generator](https://github.com/SamurAIGPT/veo4-video-generator) — Ready-made video generator built on Google's Veo 4
-- [Generative-Media-Skills](https://github.com/SamurAIGPT/Generative-Media-Skills) — Skills runtime for generative media API prompts
+- [muapi-skills](https://github.com/SamurAIGPT/muapi-skills) — Skills runtime for generative media API prompts
 - [muapi-cli](https://github.com/SamurAIGPT/muapi-cli) — CLI for running MuAPI generation tasks, including FLUX 3
 
 ## 🚀 Why Use the FLUX 3 Video API?
