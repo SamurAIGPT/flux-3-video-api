@@ -200,7 +200,7 @@ class Flux3VideoAPI:
         return self._post_request(endpoint, payload)
 
     def _post_request(self, endpoint, payload):
-        response = requests.post(endpoint, json=payload, headers=self.headers)
+        response = requests.post(endpoint, json=payload, headers=self.headers, timeout=30)
         response.raise_for_status()
         return response.json()
 
@@ -220,7 +220,7 @@ class Flux3VideoAPI:
 
         with open(file_path, "rb") as file_data:
             files = {"file": file_data}
-            response = requests.post(endpoint, headers=headers, files=files)
+            response = requests.post(endpoint, headers=headers, files=files, timeout=30)
 
         response.raise_for_status()
         return response.json()
@@ -230,7 +230,7 @@ class Flux3VideoAPI:
         Polls for the result of a generation task.
         """
         endpoint = f"{self.base_url}/predictions/{request_id}/result"
-        response = requests.get(endpoint, headers=self.headers)
+        response = requests.get(endpoint, headers=self.headers, timeout=30)
         response.raise_for_status()
         return response.json()
 
